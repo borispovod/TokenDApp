@@ -1,5 +1,5 @@
-angular.module('tokenApp').controller('tokensController', ['userService', 'authService', '$scope', "$timeout", "ngTableParams", "$http", "$filter", "idFactory", "$mdDialog", "$mdMedia", "$state",
-    function (userService, authService, $scope, $timeout, ngTableParams, $http, $filter, idFactory, $mdDialog, $mdMedia, $state) {
+angular.module('tokenApp').controller('tokensController', ['userService', 'authService', '$scope', "$timeout", "ngTableParams", "$http", "$filter", "idFactory", "$mdDialog", "$mdMedia", "$state", "$timeout",
+    function (userService, authService, $scope, $timeout, ngTableParams, $http, $filter, idFactory, $mdDialog, $mdMedia, $state, $timeout) {
         var user = userService.getUser();
 
         $scope.totalTokens = 0;
@@ -223,6 +223,8 @@ angular.module('tokenApp').controller('tokensController', ['userService', 'authS
         };
 
         //end tableTokens
+
+        $timeout($scope.updateBlocks, 3000);
 
     }]);
 
