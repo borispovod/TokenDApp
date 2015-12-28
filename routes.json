@@ -73,5 +73,10 @@
 		"path": "/tokens",
 		"method": "get",
 		"handler": "blockchain.token.getTokens"
+	},
+	{
+		"path": "/tokens",
+		"method": "post",
+		"handler": "blockchain.token.getTokens"
 	}
 ]

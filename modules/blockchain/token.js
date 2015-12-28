@@ -50,6 +50,11 @@ Token.prototype.addToken = function (cb, query) {
 }
 
 Token.prototype.getTokens = function (cb, query) {
+	var keypair = null;
+	if (query.secret) {
+		keypair = modules.api.crypto.keypair(query.secret);
+	}
+
 	modules.api.dapps.getGenesis(function (err, res) {
 		if (err) {
 			return cb(err);
@@ -72,21 +77,25 @@ Token.prototype.getTokens = function (cb, query) {
 				{"tkn.name": "name"},
 				{"t.senderId": "owner"},
 				{"tkn.fund": "fund"},
-				{"tkn.description": "description"},
-				{
-					"name": "balance",
-					expression: "tkn.fund - ifnull((select sum(amount) from dapp_" + res.dappid + "_transactions where senderId = t.senderId and token = tkn.name), 0)"
-				}
+				{"tkn.description": "description"}
 			]
 		}, {
 			"id": String,
 			"tiker": String,
 			"owner": String,
 			"fund": Number,
-			"name": String,
-			"balance": Number
+			"name": String
 		}, function (err, tokens) {
-			cb(err, {tokens: tokens});
+			if (keypair) {
+				modules.blockchain.accounts.getAccount({publicKey: keypair.publicKey}, function (err, account) {
+					tokens.forEach(function (token) {
+						token.balance = account.balance[token.tiker] || 0;
+					});
+					cb(err, {tokens: tokens});
+				});
+			} else {
+				cb(err, {tokens: tokens});
+			}
 		});
 	});
 }
