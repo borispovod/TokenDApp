@@ -31,7 +31,7 @@ angular.module('tokenApp').service('tokenService', ['$scope', "$timeout", "idFac
                 }
                 else{
                     console.log("fetching data")
-                    $http.get('/api/dapps/' + idFactory + '/api/tokens', $scope.secret?{secret: $scope.secret}:{}).success(function(resp)
+                    $http.post('/api/dapps/' + idFactory + '/api/tokens', $scope.secret?{secret: $scope.secret}:{}).success(function(resp)
                     {
                         angular.copy(resp,service.cachedData)
                         params.total(resp.length)
