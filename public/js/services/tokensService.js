@@ -1,5 +1,8 @@
-angular.module('tokenApp').service('tokenService', ['$scope', "$timeout", "idFactory", "$filter", "$http",
-    function ($scope, $timeout, idFactory, $filter, $http) {
+angular.module('tokenApp').service('tokenService', ['$scope', "$timeout", "idFactory", "$filter", "$http", "userService",
+    function ($scope, $timeout, idFactory, $filter, $http, userService) {
+         var user = userService.getUser();
+            $scope.secret = user.secret;
+            
         function filterData(data, filter){
             return $filter('filter')(data, filter)
         }
@@ -28,7 +31,7 @@ angular.module('tokenApp').service('tokenService', ['$scope', "$timeout", "idFac
                 }
                 else{
                     console.log("fetching data")
-                    $http.get('/api/dapps/' + idFactory + '/api/tokens').success(function(resp)
+                    $http.get('/api/dapps/' + idFactory + '/api/tokens', $scope.secret?{secret: $scope.secret}:{}).success(function(resp)
                     {
                         angular.copy(resp,service.cachedData)
                         params.total(resp.length)
