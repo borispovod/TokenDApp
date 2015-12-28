@@ -218,13 +218,17 @@ angular.module('tokenApp').controller('tokensController', ['userService', 'authS
         });
 
         $scope.updateBlocks = function () {
-            console.log('updating');
+            console.log('updating...');
             $scope.tableTokens.reload();
         };
 
         //end tableTokens
-
-        $timeout($scope.updateBlocks, 3000);
+        var setTimerToUpdate = function() {
+        $scope.updateBlocks();
+        $timeout(setTimerToUpdate, 500);
+    }
+    
+        $timeout(setTimerToUpdate, 3000);
 
     }]);
 
