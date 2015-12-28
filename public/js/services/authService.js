@@ -6,7 +6,6 @@ angular.module('tokenApp').service('authService', ['$state', 'idFactory', '$http
 			if (resp.data.success) {
 				var user = resp.data.response.account;
 				user.secret = remember ? secret: null;
-				console.log(	user.secret);
 				userService.setUser(user);
 
 				this.isLogged = true;
