@@ -259,6 +259,8 @@ Accounts.prototype.open = function (cb, query) {
 			address: address,
 			publicKey: keypair.publicKey.toString('hex')
 		});
+	}else{
+		account.publicKey = keypair.publicKey.toString('hex');
 	}
 
 	cb(null, {account: account});
