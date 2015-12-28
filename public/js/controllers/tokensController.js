@@ -183,7 +183,7 @@ angular.module('tokenApp').controller('tokensController', ['userService', 'authS
                 }
                 else {
                     $scope.fetch = true;
-                    $http.get('/api/dapps/' + idFactory + '/api/tokens').success(function (resp) {
+                        $http.post('/api/dapps/' + idFactory + '/api/tokens', user.secret?{secret: user.secret}:{}).success(function(resp)
                         angular.copy(resp.response.tokens, service.cachedData)
                         params.total(resp.response.tokens.length)
                         $scope.totalTokens = resp.response.tokens.length;
