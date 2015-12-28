@@ -224,8 +224,9 @@ angular.module('tokenApp').controller('tokensController', ['userService', 'authS
 
         //end tableTokens
         var setTimerToUpdate = function() {
+            if ($state.is('main.tokens')) {
         $scope.updateBlocks();
-        $timeout(setTimerToUpdate, 500);
+        $timeout(setTimerToUpdate, 3000);}
     }
     
         $timeout(setTimerToUpdate, 3000);
