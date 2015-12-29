@@ -28,7 +28,7 @@ Token.prototype.create = function (data, trs) {
 }
 
 Token.prototype.calculateFee = function (trs) {
-	return 1 * constants.fixedPoint;
+	return 0 * constants.fixedPoint;
 }
 
 Token.prototype.getBytes = function (trs) {
