@@ -201,7 +201,7 @@ angular.module('tokenApp').controller('tokensController', ['userService', 'authS
 			page: 1,
 			count: 6,
 			sorting: {
-				balance: 'asc'
+				balance: 'desc'
 			}
 		}, {
 			total: 0,
